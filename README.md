@@ -50,6 +50,7 @@ To run the OpenMarket application on your local machine, follow these steps:
    ```
 4. **Create SQLite database and make migrations**
 ```bash
+$env:FLASK_APP = "run.py"
 flask db init
 flask db migrate
 flask db upgrade
