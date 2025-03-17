@@ -29,7 +29,7 @@ To run the OpenMarket application on your local machine, follow these steps:
 1. **Clone the Repository:**  
    ```bash
    git clone https://github.com/yuutoa/open-market.git
-   cd OpenMarketProject
+   cd open-market
    ```
 
 2. **Create and Activate Virtual Environment:**  
