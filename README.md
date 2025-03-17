@@ -70,7 +70,7 @@ flask db upgrade
 ---
 
 ## User Manual
-For more detailed guidance on how to use OpenMarket, please refer to the [OpenMarketUserManual](docs/OpenMarketUserManual).
+For more detailed guidance on how to use OpenMarket, please refer to the [OpenMarketUserManual](docs/OpenMarketUserManual.md).
 
 ---
 
