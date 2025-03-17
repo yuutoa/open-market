@@ -196,9 +196,5 @@ OpenMarket is a dynamic and user-friendly web application that allows users to b
 
 ---
 
-## Conclusion
 
-OpenMarket is a robust platform that demonstrates the core functionalities of a marketplace. With features for account management, item transactions, and budget tracking, it offers a comprehensive user experience. Built using Flask and SQLite, this project showcases the potential of Python-based web development while addressing real-world challenges like security and data consistency.
-
-This application is a testament to Yuuto Akihiro’s dedication to learning and improving as a developer. It serves not only as a portfolio piece but also as a stepping stone toward more advanced projects.
 
