@@ -1,0 +1,107 @@
+<!-- Modal Styling for Items -->
+<style>
+  #items-modals .modal-content {
+    background-color: #1e1e2d; /* Darker shade for a modern look */
+    color: #fff; /* Ensure text is readable */
+    border-radius: 10px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5);
+  }
+
+  #items-modals .modal-header {
+    border-bottom: 1px solid #444;
+    padding: 1rem 1.5rem;
+  }
+
+  #items-modals .modal-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  #items-modals .close {
+    color: #aaa;
+    font-size: 1.2rem;
+  }
+
+  #items-modals .close:hover {
+    color: #fff;
+  }
+
+  #items-modals .modal-body {
+    padding: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  #items-modals .modal-footer {
+    border-top: 1px solid #444;
+    padding: 1rem;
+  }
+
+  #items-modals .btn-outline-success {
+    color: #28a745;
+    border: 1px solid #28a745;
+  }
+
+  #items-modals .btn-outline-success:hover {
+    background-color: #28a745;
+    color: #fff;
+  }
+
+  #items-modals .btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+    border: none;
+  }
+
+  #items-modals .btn-secondary:hover {
+    background-color: #5a6268;
+  }
+</style>
+
+<div id="items-modals">
+  <!-- More Info Modal -->
+  <div class="modal fade" id="Modal-MoreInfo-{{ item.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ item.name }}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>{{ item.description }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Purchase Confirm Modal -->
+  <div class="modal fade" id="Modal-PurchaseConfirm-{{ item.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Purchase Confirmation</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="POST">
+            {{ purchase_form.hidden_tag() }}
+            <h4 class="text-center">Are you sure you want to purchase <strong>{{ item.name }}</strong> for <strong>{{ item.price }}$</strong>?</h4>
+            <p class="text-center mt-3">By confirming your purchase, you agree to complete this transaction.</p>
+            <input id="purchased_item" name="purchased_item" type="hidden" value="{{ item.name }}">
+            {{ purchase_form.submit(class="btn btn-outline-success btn-block") }}
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

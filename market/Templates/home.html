@@ -1,0 +1,70 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} {% block style %}
+/* General styles */ body { font-family: 'Arial', sans-serif; margin: 0;
+padding: 0; background-color: #f8f9fa; } /* Navbar styles */ .navbar {
+background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent */
+border-bottom: none; /* Removed white divider line */ backdrop-filter:
+blur(8px); transition: background-color 0.3s ease, backdrop-filter 0.3s ease; }
+body.scrolled .navbar { background-color: #ffffff; /* Solid background after
+scroll */ backdrop-filter: none; } /* Landing Section */ .landing { height:
+100vh; background-size: cover; background-position: center; background-repeat:
+no-repeat; display: flex; justify-content: center; align-items: center;
+position: relative; z-index: 1; } .landing-overlay { position: absolute; top: 0;
+left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.5); /* Dark
+overlay */ z-index: 1; } .landing-content { z-index: 2; position: relative;
+max-width: 80%; text-align: center; color: #fff; } .landing-content h1 {
+font-size: 3.5rem; font-weight: bold; margin-bottom: 1rem; } .landing-content p
+{ font-size: 1.25rem; margin-bottom: 2rem; } /* Introduction Section */
+.introduction { background-color: #EDE7FC; min-height: 100vh; display: flex;
+justify-content: center; align-items: center; text-align: center; padding: 2rem;
+} .introduction .container { max-width: 900px; padding: 2rem; box-shadow: 0 4px
+8px rgba(0, 0, 0, 0.1); background: #fff; border-radius: 10px; } .introduction
+h2 { font-size: 2.5rem; margin-bottom: 1.5rem; } .introduction p { font-size:
+1.2rem; color: #6c757d; margin-bottom: 2rem; } .introduction .btn-primary {
+padding: 0.6rem 1.5rem; border-radius: 30px; } /* Footer styles */ footer {
+background-color: #ddd3ed; border-top: 1px solid #e0e0e0; text-align: center;
+padding: 1rem; } {% endblock %} {% block content %}
+<!-- Landing Section -->
+<div
+  class="landing"
+  style="background-image: url('{{ url_for('static', filename='images/main_page_liquid_wallpaper.jpeg') }}');"
+>
+  <div class="landing-overlay"></div>
+  <div class="landing-content">
+    <h1>Welcome to OpenMarket</h1>
+    <p class="lead">
+      Buy and sell items effortlessly in our online marketplace.
+    </p>
+    <a href="{{ url_for('market_page') }}" class="btn btn-primary btn-lg mt-3"
+      >Start Shopping</a
+    >
+  </div>
+</div>
+
+<!-- Introduction Section -->
+<section class="introduction">
+  <div class="container">
+    <h2>What is OpenMarket?</h2>
+    <p>
+      OpenMarket allows users to buy and sell items online in a safe and
+      user-friendly environment. Discover great deals or share your unused items
+      with others. Join us and explore the marketplace today!
+    </p>
+    <a href="{{ url_for('register_page') }}" class="btn btn-primary"
+      >Join Now</a
+    >
+  </div>
+</section>
+
+{% endblock %} {% block script %}
+<script>
+  document.addEventListener("scroll", function () {
+    const navbar = document.querySelector("nav.navbar");
+    const scrolled = window.scrollY > window.innerHeight / 2; // Adjust blur after 1/2 scroll
+    if (scrolled) {
+      document.body.classList.add("scrolled");
+    } else {
+      document.body.classList.remove("scrolled");
+    }
+  });
+</script>
+{% endblock %}

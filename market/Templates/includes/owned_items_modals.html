@@ -1,0 +1,87 @@
+<!-- Sell Item Modal Styling -->
+<style>
+  #owned-items-modals .modal-content {
+    background-color: #1e1e2d;
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5);
+  }
+
+  #owned-items-modals .modal-header {
+    border-bottom: 1px solid #444;
+    padding: 1rem 1.5rem;
+  }
+
+  #owned-items-modals .modal-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  #owned-items-modals .close {
+    color: #aaa;
+    font-size: 1.2rem;
+  }
+
+  #owned-items-modals .close:hover {
+    color: #fff;
+  }
+
+  #owned-items-modals .modal-body {
+    padding: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  #owned-items-modals .modal-footer {
+    border-top: 1px solid #444;
+    padding: 1rem;
+  }
+
+  #owned-items-modals .btn-outline-danger {
+    color: #dc3545;
+    border: 1px solid #dc3545;
+  }
+
+  #owned-items-modals .btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: #fff;
+  }
+
+  #owned-items-modals .btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+    border: none;
+  }
+
+  #owned-items-modals .btn-secondary:hover {
+    background-color: #5a6268;
+  }
+</style>
+
+<div id="owned-items-modals">
+  <!-- Selling Confirm Modal -->
+  <div class="modal fade" id="Modal-SellingConfirm-{{ owned_item.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Selling Confirmation</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="POST">
+            {{ selling_form.hidden_tag() }}
+            <h4 class="text-center">Are you sure you want to sell <strong>{{ owned_item.name }}</strong> for <strong>{{ owned_item.price }}$</strong>?</h4>
+            <p class="text-center mt-3">Once sold, this item will be made available in the market.</p>
+            <input id="sold_item" name="sold_item" type="hidden" value="{{ owned_item.name }}">
+            {{ selling_form.submit(class="btn btn-outline-danger btn-block") }}
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

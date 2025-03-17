@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Account
+{% endblock %}
+
+{% block style %}
+    header {
+        background-color: #333;
+        color: white;
+        padding: 20px;
+    }
+
+    /* Account Intro Section */
+    .account-intro {
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4)),
+                    url('{{ url_for('static', filename='images/market_page_bg.png') }}')
+                    no-repeat center center / cover;
+        height: 50vh; /* Fixed height */
+        margin-top: 60px; /* Pushes the section below the fixed navbar */
+        display: flex; /* For alignment */
+        flex-direction: column; /* Stack items vertically */
+        justify-content: center; /* Center items vertically */
+        align-items: center; /* Center items horizontally */
+        text-align: center;
+        color: white; /* Text color for visibility */
+    }
+
+    .account-intro h1, .account-intro p {
+        margin: 0; /* Remove extra spacing */
+        padding: 0;
+        margin-top: 1.5rem;
+    }
+
+    .account-intro h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+    }
+    .account-intro p {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .add-item-button {
+        margin: 1.5rem 0;
+    }
+
+
+    body {
+        background-color: #2e2b47;
+        color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    .market-container {
+        padding: 40px 5%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        flex-grow: 1; /* Ensures it takes up available space */
+    }
+
+    .item-card {
+        background-color: #3b374f;
+        border-radius: 10px;
+        padding: 20px;
+        color: #ffffff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        transition: transform 0.3s, box-shadow 0.3s;
+        flex: 1 1 calc(25% - 40px);
+        margin: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 30rem;
+        min-width: 23rem;
+    }
+
+    .item-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .item-card h3 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .item-card p {
+        margin: 5px 0;
+    }
+
+    .item-card .price {
+        color: #28a745; /* Green shade for price */
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    footer {
+        background-color: #1f1d33;
+        color: #ffffff;
+        padding: 20px 0;
+        margin-top: 40px;
+        text-align: center;
+    }
+
+    .add-item-button {
+        margin-top: 20px;
+        font-size: 1.2rem;
+        padding: 15px 30px;
+        border-radius: 5px;
+    }
+
+    .no-items-text {
+        text-align: center;
+        font-size: 1.5rem;
+        color: #ccc;
+        margin-top: 20px;
+    }
+{% endblock %}
+
+{% block content %}
+    <header class="account-intro">
+        <div>
+            <h1>Welcome to Your Account, {{ current_user.username }}</h1>
+            <p class="lead">Here you can manage your purchased items and add new items to the market!</p>
+            {% include 'includes/add_items_modals.html' %}
+            <button type="button" class="btn btn-primary add-item-button" data-toggle="modal" data-target="#addItemModal">
+                    Add Item to Market
+            </button>
+        </div>
+    </header>
+
+    <div class="market-container">
+        {% if owned_items|length > 0 %}
+            {% for owned_item in owned_items %}
+                {% include 'includes/owned_items_modals.html' %}
+                <div class="item-card">
+                    <h3>{{ owned_item.name }}</h3>
+                    <p>ID: {{ owned_item.id }}</p>
+                    <p class="price">${{ owned_item.price }}</p>
+                    <span class="badge badge-info">Added by <strong class="text-uppercase">{{ owned_item.added_by_user }}</strong></span>
+                    <div class="button-group">
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#Modal-SellingConfirm-{{ owned_item.id }}" style="margin: 0.8rem;">
+                            Sell Item
+                        </button>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-items-text">No items purchased yet or added to your account!</p>
+        {% endif %}
+    </div>
+{% endblock %}

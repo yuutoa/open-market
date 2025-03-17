@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Market
+{% endblock %}
+
+{% block style %}
+    header {
+        background-color: #333;
+        color: white;
+        padding: 20px;
+    }
+    /* Navbar */
+    .navbar {
+        position: fixed; /* Ensures the navbar stays at the top */
+        z-index: 1000; /* Keeps it above other elements */
+    }
+
+    /* Market Intro Section */
+    .market-intro {
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4)),
+                    url('{{ url_for('static', filename='images/market_page_bg.png') }}')
+                    no-repeat center center / cover;
+        height: calc(40vh - 60px); /* Subtract navbar height from the section height */
+        margin-top: 60px; /* Pushes the section below the fixed navbar */
+        display: flex; /* For alignment */
+        flex-direction: column; /* Stack items vertically */
+        justify-content: center; /* Center items vertically */
+        align-items: center; /* Center items horizontally */
+        text-align: center;
+        color: white; /* Text color for visibility */
+    }
+
+    .market-intro h1, .market-intro p {
+        margin: 0; /* Remove extra spacing */
+        padding: 0;
+    }
+
+    .market-intro h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .market-intro p {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+
+    body {
+        background-color: #2e2b47;
+        color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    .market-container {
+        padding: 40px 5%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        flex-grow: 1; /* Ensures the main content area expands to push the footer down */
+    }
+
+    .item-card {
+        background-color: #3b374f;
+        border-radius: 10px;
+        padding: 20px;
+        color: #ffffff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        transition: transform 0.3s, box-shadow 0.3s;
+        flex: 1 1 calc(25% - 40px);
+        margin: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 30rem;
+        min-width: 23rem;
+    }
+
+    .item-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .item-card h3 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .item-card p {
+        margin: 5px 0;
+    }
+
+    .item-card .price {
+        color: #28a745; /* Green shade for price */
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    nav.market-categories {
+        text-align: center;
+        padding: 20px 0;
+    }
+
+    nav.market-categories a {
+        color: #b7b7b7;
+    }
+
+    #loadMore {
+        color: #b7b7b7;
+    }
+
+    footer {
+        background-color: #1f1d33;
+        color: #ffffff;
+        padding: 20px 0;
+        text-align: center;
+        margin-top: auto; /* Pushes the footer to the bottom of the page */
+    }
+
+    .no-items-text {
+        text-align: center;
+        font-size: 1.7rem;
+        color: #ccc;
+        margin-top: 20px;
+    }
+{% endblock %}
+
+{% block content %}
+    <header class="market-intro">
+        <div>
+            <h1>Start shopping with <span style="font-weight:bold;color: #6c63ff;">OpenMarket</span></h1>
+            <p class="lead">Explore the best gadgets tailored for you!</p>
+        </div>
+    </header>
+
+    <nav class="market-categories">
+        <a href="#smartphones" class="btn btn-outline-light mx-2">Smartphones</a>
+        <a href="#laptops" class="btn btn-outline-light mx-2">Laptops</a>
+        <a href="#accessories" class="btn btn-outline-light mx-2">Accessories</a>
+    </nav>
+
+    <div class="market-container">
+        {% if items|length > 0 %}
+            {% for item in items %}
+                {% include 'includes/items_modals.html' %}
+                <div class="item-card">
+                    <h3>{{ item.name }}</h3>
+                    <p>ID: {{ item.id }}</p>
+                    <p class="price">${{ item.price }}</p>
+                    <span class="badge badge-info">Added by <strong class="text-uppercase">{{ item.added_by_user }}</strong></span>
+                    <div class="button-group">
+                        <button class="btn btn-success" data-toggle="modal" data-target="#Modal-PurchaseConfirm-{{ item.id }}" style="margin: 0.8rem;">Purchase Now</button>
+                        <button class="btn btn-info" data-toggle="modal" data-target="#Modal-MoreInfo-{{ item.id }}" style="margin: 0.8rem;">More info</button>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-items-text">No items in the market yet!</p>
+        {% endif %}
+    </div>
+
+    <div class="text-center">
+        <button class="btn btn-outline-light my-4" id="loadMore">Load More</button>
+    </div>
+{% endblock %}
